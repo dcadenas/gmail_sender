@@ -2,11 +2,11 @@
 
 A simple gem to send email through gmail
 
-require 'rubygems'
-require 'gmail_sender'
+  require 'rubygems'
+  require 'gmail_sender'
 
-g = GmailSender.new("my_gmail_user_name", "my_gmail_account_password")
-g.send("someone@domain.com", "The subject", "The mail body")
+  g = GmailSender.new("my_gmail_user_name", "my_gmail_account_password")
+  g.send("someone@domain.com", "The subject", "The mail body")
 
 == Requirements
 
