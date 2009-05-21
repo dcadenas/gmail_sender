@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "gmail_sender.gemspec",
      "lib/gmail_sender.rb",
      "test/gmail_sender_test.rb",
      "test/test_helper.rb"
