@@ -1,0 +1,17 @@
+= gmail_sender
+
+A simple gem to send email through gmail
+
+require 'rubygems'
+require 'gmail_sender'
+
+g = GmailSender.new("my_gmail_user_name", "my_gmail_account_password")
+g.send("someone@domain.com", "The subject", "The mail body")
+
+== Requirements
+
+Ruby >= 1.8.7
+
+== Copyright
+
+Copyright (c) 2009 Daniel Cadenas. See LICENSE for details.
