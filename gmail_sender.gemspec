@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gmail_sender}
-  s.version = "0.0.2"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Cadenas"]
-  s.date = %q{2009-05-21}
+  s.date = %q{2009-05-25}
   s.email = %q{dcadenas@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
      "VERSION",
      "gmail_sender.gemspec",
      "lib/gmail_sender.rb",
+     "lib/tls_smtp_patch.rb",
      "test/gmail_sender_test.rb",
      "test/test_helper.rb"
   ]
