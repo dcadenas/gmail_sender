@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+
+$: << File.join(File.dirname(__FILE__), "..", "lib")
+
+require 'rubygems'
+require 'lib/gmail_sender'
+require 'choice'
+
+Choice.options do
+  header ''
+  header 'options:'
+  
+  option :to, :required => true do
+    short '-t'
+    long '--to=RECEIVER'
+    desc 'Receiver of the email'
+  end
+
+  option :subject, :required => true do
+    short '-s'
+    long '--subject=SUBJECT'
+    desc 'Subject of the email'
+  end
+
+  option :content do
+    short '-c'
+    long '--content=MAIL_CONTENTS'
+    desc 'Body of the email, uses STDIN of omitted'
+  end
+end
+
+def read_config
+  config = {}
+  group = nil
+  File.foreach("#{ENV['HOME']}/.gmail") do |line|
+    line.strip!
+    if line[0] != ?# and line =~ /\S/
+      if line =~ /^\[(.*)\]$/
+        group = $1
+      else
+        key, value = line.split("=")
+        value ||= ''
+        (config[group]||={})[key.strip] = value.strip
+      end
+    end
+  end
+  config
+end
+
+config = read_config['account']
+mailer = Gmail::Emailer.new(config['user'], config['password'], config['domain'])
+mailer.send(Choice.choices[:to], Choice.choices[:subject], Choice.choices[:content] || STDIN.read)

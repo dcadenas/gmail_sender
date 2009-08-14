@@ -2,12 +2,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gmail_sender}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Daniel Cadenas"]
+  s.authors = ["Daniel Cadenas", "Felipe Coury"]
   s.date = %q{2009-05-25}
-  s.email = %q{dcadenas@gmail.com}
+  s.email = %q{dcadenas@gmail.com felipe.coury@gmail.com}
+  s.executables = ["gmail"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -20,6 +21,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "gmail_sender.gemspec",
+     "bin/gmail",
      "lib/gmail_sender.rb",
      "lib/tls_smtp_patch.rb",
      "test/gmail_sender_test.rb",
@@ -40,6 +42,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<choice>, [">= 0"])
     else
     end
   else

@@ -1,6 +1,6 @@
 require "net/smtp"
 
-if !Net::SMTP.instance_methods.include?(:enable_starttls)
+unless Net::SMTP.instance_methods.include?(:enable_starttls)
   require "tlsmail" 
   class Net::SMTP
     def enable_starttls
