@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-$: << File.join(File.dirname(__FILE__), "..", "lib")
-
 require 'rubygems'
 require 'gmail_sender'
 require 'choice'
@@ -10,13 +8,13 @@ Choice.options do
   header ''
   header 'options:'
   
-  option :to, :required => true do
+  option :receiver_email do
     short '-t'
     long '--to=RECEIVER'
     desc 'Receiver of the email'
   end
 
-  option :subject, :required => true do
+  option :subject do
     short '-s'
     long '--subject=SUBJECT'
     desc 'Subject of the email'
@@ -25,28 +23,29 @@ Choice.options do
   option :content do
     short '-c'
     long '--content=MAIL_CONTENTS'
-    desc 'Body of the email, uses STDIN of omitted'
+    desc 'Body of the email, uses STDIN if omitted'
   end
 end
 
-def read_config
-  config = {}
-  group = nil
-  File.foreach("#{ENV['HOME']}/.gmail") do |line|
-    line.strip!
-    if line[0] != ?# and line =~ /\S/
-      if line =~ /^\[(.*)\]$/
-        group = $1
-      else
-        key, value = line.split("=")
-        value ||= ''
-        (config[group]||={})[key.strip] = value.strip
-      end
-    end
+def params
+  return @params if @params
+
+  config_file_path = File.join(ENV['HOME'],'.gmail')
+  if !File.exists?(config_file_path)
+    STDERR.puts "Please first create a ~/.gmail file with some defaults. Example:
+      receiver_email: default_receiver@gmail.com
+      sender_user: gmail_account_user_name
+      sender_password: gmail_account_user_password
+    "
+    exit 1
   end
-  config
+
+  defaults = {'subject' => 'Sent from command line',
+              'sender_domain' => 'gmail.com'}
+
+  @params = defaults.merge(YAML.load_file(config_file_path)).merge(Choice.choices)
 end
 
-config = read_config['account']
-mailer = Gmail::Emailer.new(config['user'], config['password'], config['domain'])
-mailer.send(Choice.choices[:to], Choice.choices[:subject], Choice.choices[:content] || STDIN.read)
+
+mailer = GmailSender.new(params['sender_user'], params['sender_password'], params['sender_domain'])
+mailer.send(params['receiver_email'], params['subject'], params['content'] || STDIN.read)

@@ -8,10 +8,31 @@ A simple gem to send email through gmail
   g = GmailSender.new("gmail_account_user_name", "gmail_account_password")
   g.send("someone@domain.com", "The subject", "The mail body")
 
+== Command line usage
+
+You can also use gmail_sender from the command line. First you need to create ~/.gmail with this content (YAML):
+
+  receiver_email: default_receiver@gmail.com
+  sender_user: gmail_account_user_name
+  sender_password: gmail_account_password
+
+Is advisable to use a different sender account than your main email address so that it's not so bad if someone reads your configuration file and gets your password.
+
+=== Examples
+
+To send your directory list to the default receiver:
+
+  ls | gmail
+
+You can specify some parameters like in this example which doesn't use pipes:
+
+  gmail -t somebody@gmail.com -s "This is the subject" -c "This is the email content" 
+  
 == Requirements
 
 tlsmail if running Ruby 1.8.6
 
-== Copyright
+== Major contributors
 
-Copyright (c) 2009 Daniel Cadenas. See LICENSE for details.
+* Daniel Cadenas - Maintainer
+* Felipe Coury

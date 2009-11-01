@@ -8,10 +8,11 @@ Gem::Specification.new do |s|
   s.authors = ["Daniel Cadenas", "Felipe Coury"]
   s.date = %q{2009-05-25}
   s.email = %q{dcadenas@gmail.com felipe.coury@gmail.com}
+  s.bindir = "bin"
   s.executables = ["gmail"]
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.rdoc"
+    "README.rdoc"
   ]
   s.files = [
     ".document",
@@ -31,7 +32,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.3}
-  s.summary = %q{A simple gem to send email through gmail}
+  s.summary = s.description = %q{A simple gem to send email through gmail}
   s.test_files = [
     "test/gmail_sender_test.rb",
      "test/test_helper.rb"
