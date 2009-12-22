@@ -6,6 +6,7 @@ A simple gem to send email through gmail
   require 'gmail_sender'
 
   g = GmailSender.new("gmail_account_user_name", "gmail_account_password")
+  g.attach('/path/to/document.hz') # you can attach any number of files, but there are limits for total attachments size
   g.send("someone@domain.com", "The subject", "The mail body")
 
 == Command line usage
