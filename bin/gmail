@@ -25,6 +25,13 @@ Choice.options do
     long '--content=MAIL_CONTENTS'
     desc 'Body of the email, uses STDIN if omitted'
   end
+
+option :attachments do
+    short '-a'
+    long '--attachments *ATTACHMENTS'
+    desc "A list of space separated list of files you wish to attach."
+  end
+  
 end
 
 def params
@@ -48,4 +55,8 @@ end
 
 
 mailer = GmailSender.new(params['sender_user'], params['sender_password'], params['sender_domain'])
-mailer.send(params['receiver_email'], params['subject'], params['content'] || STDIN.read)
+params['attachments'].each do |attachment|
+  mailer.attach(attachment)
+end
+content = params['content'] || (params['attachments'] && params['attachments'].join("\n"))
+mailer.send(params['receiver_email'], params['subject'], content || STDIN.read)
