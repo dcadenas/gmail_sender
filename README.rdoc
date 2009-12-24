@@ -28,6 +28,10 @@ To send your directory list to the default receiver:
 You can specify some parameters like in this example which doesn't use pipes:
 
   gmail -t somebody@gmail.com -s "This is the subject" -c "This is the email content" 
+
+You can send attachments by using the -a option (this example assumes that you have a receiver_email set in the ~/.gmail file so the -t is not needed):
+
+  gmail -c "hi, I'm sending some attachments" -a ./VERSION ./gmail_sender.gemspec
   
 == Requirements
 
@@ -37,3 +41,4 @@ tlsmail if running Ruby 1.8.6
 
 * Daniel Cadenas - Maintainer
 * Felipe Coury
+* iwakura
