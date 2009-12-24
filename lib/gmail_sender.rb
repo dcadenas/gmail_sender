@@ -19,54 +19,50 @@ class GmailSender
     @attachments << file if File.exist?(file)
   end
 
-  def send(to, subject, content)
+  def send(to, subject = "", content = "")
     @net_smtp.start(@sender_domain, @sender_email, @sender_password, :plain) do |smtp|
-      smtp.open_message_stream(@sender_email, [to]) do |msg|
-        puts_headers(msg, to, subject)
-        msg.puts content
-        attach_files(msg)
+      smtp.open_message_stream(@sender_email, [to]) do |msg_stream|
+        set_message_stream(msg_stream, to, subject, content)
       end
     end
   end
 
-  # does not used
-  def create_message(to, subject, content)
-<<MSG
-From: #@sender_email
-To: #{to}
-Subject: #{subject}
-
-#{content}
-MSG
+  def set_message_stream(msg_stream, to, subject, content)
+    set_headers(msg_stream, to, subject)
+    set_content(msg_stream, content)
+    set_attachments(msg_stream)
   end
 
-  private
-
-  def puts_headers(msg, to, subject)
-    msg.puts "From: #{@sender_email}"
-    msg.puts "To: #{to}"
-    msg.puts "Subject: #{subject}"
+private
+  def set_headers(msg_stream, to, subject)
+    msg_stream.puts "From: #{@sender_email}"
+    msg_stream.puts "To: #{to}"
+    msg_stream.puts "Subject: #{subject}"
     unless @attachments.empty?
-      msg.puts 'MIME-Version: 1.0'
-      msg.puts %{Content-Type: multipart/mixed; boundary="#{@boundary}"}
+      msg_stream.puts 'MIME-Version: 1.0'
+      msg_stream.puts %{Content-Type: multipart/mixed; boundary="#{@boundary}"}
     end
-    msg.puts
+    msg_stream.puts
     unless @attachments.empty?
-      msg.puts "--#{@boundary}"
-      msg.puts 'Content-Type: text/plain'
+      msg_stream.puts "--#{@boundary}"
+      msg_stream.puts 'Content-Type: text/plain'
     end
   end
 
-  def attach_files(msg)
+  def set_content(msg_stream, content)
+    msg_stream.puts content
+  end
+
+  def set_attachments(msg_stream)
     @attachments.each do |file|
-      msg.puts "--#{@boundary}"
-      msg.puts %{Content-Type: application/octet-stream; name="#{File.basename(file)}"}
-      msg.puts %{Content-Disposition: attachment; filename="#{File.basename(file)}"}
-      msg.puts 'Content-Transfer-Encoding: base64'
-      msg.puts "Content-ID: <#{File.basename(file)}>"
-      msg.puts
+      msg_stream.puts "--#{@boundary}"
+      msg_stream.puts %{Content-Type: application/octet-stream; name="#{File.basename(file)}"}
+      msg_stream.puts %{Content-Disposition: attachment; filename="#{File.basename(file)}"}
+      msg_stream.puts 'Content-Transfer-Encoding: base64'
+      msg_stream.puts "Content-ID: <#{File.basename(file)}>"
+      msg_stream.puts
       File.open(file) do |fd|
-        msg.puts Base64.encode64(fd.read(ATTACHMENT_READ_PORTION)) until fd.eof?
+        msg_stream.puts Base64.encode64(fd.read(ATTACHMENT_READ_PORTION)) until fd.eof?
       end
     end
   end
