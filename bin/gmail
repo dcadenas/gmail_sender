@@ -55,8 +55,10 @@ end
 
 
 mailer = GmailSender.new(params['sender_user'], params['sender_password'], params['sender_domain'])
-params['attachments'].each do |attachment|
-  mailer.attach(attachment)
+if params['attachments']
+  params['attachments'].each do |attachment|
+    mailer.attach(attachment)
+  end
 end
 content = params['content'] || (params['attachments'] && params['attachments'].join("\n"))
 mailer.send(params['receiver_email'], params['subject'], content || STDIN.read)
