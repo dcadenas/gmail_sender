@@ -9,6 +9,8 @@ begin
     gem.email = "dcadenas@gmail.com"
     gem.homepage = "http://github.com/dcadenas/gmail_sender"
     gem.authors = ["Daniel Cadenas"]
+    gem.add_development_dependency "expectations"
+    gem.add_development_dependency "filetesthelper"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 
