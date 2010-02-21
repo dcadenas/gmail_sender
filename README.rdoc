@@ -9,6 +9,10 @@ A simple gem to send email through gmail
   g.attach('/path/to/document.hz') # you can attach any number of files, but there are limits for total attachments size
   g.send("someone@domain.com", "The subject", "The mail body")
 
+To use your google apps domain instead of gmail.com include the complete sender email instead of just the user name:
+
+  g = GmailSender.new("gmail_account_user_name@yourdomain.com", "gmail_account_password")
+
 == Command line usage
 
 You can also use gmail_sender from the command line. First you need to create ~/.gmail with this content (YAML):

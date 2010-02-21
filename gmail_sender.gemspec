@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Cadenas"]
-  s.date = %q{2010-02-17}
+  s.date = %q{2010-02-21}
   s.default_executable = %q{gmail}
   s.email = %q{dcadenas@gmail.com}
   s.executables = ["gmail"]
@@ -38,7 +38,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{A simple gem to send email through gmail}
   s.test_files = [
-    "test/message_stream_writer_test.rb",
+    "test/gmail_sender_test.rb",
+     "test/message_stream_writer_test.rb",
      "test/test_helper.rb"
   ]
 

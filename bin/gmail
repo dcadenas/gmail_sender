@@ -54,7 +54,7 @@ def params
 end
 
 
-mailer = GmailSender.new(params['sender_user'], params['sender_password'], params['sender_domain'])
+mailer = GmailSender.new("#{params['sender_user']}@#{params['sender_domain']}", params['sender_password'])
 if params['attachments']
   params['attachments'].each do |attachment|
     mailer.attach(attachment)

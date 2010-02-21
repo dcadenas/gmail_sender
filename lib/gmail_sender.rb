@@ -3,9 +3,10 @@ require 'tls_smtp_patch'
 require 'gmail_sender/message_stream_writer'
 
 class GmailSender
-  def initialize(user, password, domain="gmail.com", message_stream_writer_class = MessageStreamWriter, net_smtp_class = Net::SMTP)
-    @sender_domain = domain
-    @sender_email = "#{user}@#{domain}"
+  def initialize(user_or_email, password, net_smtp_class = Net::SMTP, message_stream_writer_class = MessageStreamWriter)
+    user, domain = user_or_email.split("@")
+    @sender_domain = domain || "gmail.com"
+    @sender_email = "#{user}@#{@sender_domain}"
     @sender_password = password
 
     @net_smtp = net_smtp_class.new("smtp.gmail.com", 587)
