@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gmail_sender}
-  s.version = "0.3.1"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Cadenas"]
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
      "lib/gmail_sender.rb",
      "lib/gmail_sender/message_stream_writer.rb",
      "lib/tls_smtp_patch.rb",
+     "test/gmail_sender_test.rb",
      "test/message_stream_writer_test.rb",
      "test/test_helper.rb"
   ]
