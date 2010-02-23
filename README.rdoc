@@ -36,7 +36,11 @@ You can specify some parameters like in this example which doesn't use pipes:
 You can send attachments by using the -a option (this example assumes that you have a receiver_email set in the ~/.gmail file so the -t is not needed):
 
   gmail -c "hi, I'm sending some attachments" -a ./VERSION ./gmail_sender.gemspec
-  
+
+== Installation
+
+  sudo gem install gmail_sender
+
 == Requirements
 
 tlsmail if running Ruby 1.8.6
