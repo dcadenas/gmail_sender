@@ -7,7 +7,14 @@ A simple gem to send email through gmail
 
   g = GmailSender.new("gmail_account_user_name", "gmail_account_password")
   g.attach('/path/to/document.hz') # you can attach any number of files, but there are limits for total attachments size
-  g.send("someone@domain.com", "The subject", "The mail body")
+  g.send(:to => "someone@domain.com", :subject => "The subject", :content => "The mail body")
+
+You can specify the content type which is text/plain by default.
+
+  g.send(:to => "someone@domain.com",
+         :subject => "The subject",
+         :content => "<img src='http://upload.wikimedia.org/wikipedia/en/0/0d/Simpsons_FamilyPicture.png'/>", 
+         :content_type => 'text/html')
 
 To use your google apps domain instead of gmail.com include the complete sender email instead of just the user name:
 
@@ -36,6 +43,10 @@ You can specify some parameters like in this example which doesn't use pipes:
 You can send attachments by using the -a option (this example assumes that you have a receiver_email set in the ~/.gmail file so the -t is not needed):
 
   gmail -c "hi, I'm sending some attachments" -a ./VERSION ./gmail_sender.gemspec
+
+To send html content use the ct option
+
+  gmail -c "<img src='http://upload.wikimedia.org/wikipedia/en/0/0d/Simpsons_FamilyPicture.png'/>" -ct text/html
 
 == Installation
 

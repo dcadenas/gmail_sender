@@ -26,6 +26,12 @@ Choice.options do
     desc 'Body of the email, uses STDIN if omitted'
   end
 
+  option :content_type do
+    short '-ct'
+    long '--content_type=CONTENT_TYPE'
+    desc 'Content Type, text/plain by default, use text/html for html'
+  end
+
 option :attachments do
     short '-a'
     long '--attachments *ATTACHMENTS'
@@ -48,7 +54,8 @@ def params
   end
 
   defaults = {'subject' => 'Sent from command line',
-              'sender_domain' => 'gmail.com'}
+              'sender_domain' => 'gmail.com',
+              'content_type' => 'text/plain'}
 
   @params = defaults.merge(YAML.load_file(config_file_path)).merge(Choice.choices)
 end
@@ -61,4 +68,4 @@ if params['attachments']
   end
 end
 content = params['content'] || (params['attachments'] && params['attachments'].join("\n"))
-mailer.send(:to => params['receiver_email'], :subject => params['subject'], :content => content || STDIN.read)
+mailer.send(:to => params['receiver_email'], :subject => params['subject'], :content => content || STDIN.read, :content_type => params['content_type'])

@@ -10,9 +10,9 @@ class GmailSender
       @boundary = rand(2**256).to_s(16)
     end
 
-    def write(msg_stream, to, subject, content)
+    def write(msg_stream, to, subject, content, content_type)
       write_headers(msg_stream, to, subject)
-      write_content(msg_stream, content)
+      write_content(msg_stream, content, content_type)
       write_attachments(msg_stream)
     end
 
@@ -21,19 +21,19 @@ class GmailSender
       msg_stream.puts "From: #{@sender_email}"
       msg_stream.puts "To: #{to}"
       msg_stream.puts "Subject: #{subject}"
+      msg_stream.puts 'MIME-Version: 1.0'
       unless @attachments.empty?
-        msg_stream.puts 'MIME-Version: 1.0'
         msg_stream.puts %{Content-Type: multipart/mixed; boundary="#{@boundary}"}
       end
-      msg_stream.puts
     end
 
-    def write_content(msg_stream, content)
+    def write_content(msg_stream, content, content_type)
       unless @attachments.empty?
         msg_stream.puts "--#{@boundary}" unless @attachments.empty?
-        msg_stream.puts 'Content-Type: text/plain'
       end
 
+      msg_stream.puts "Content-Type: #{content_type}"
+      msg_stream.puts
       msg_stream.puts content
     end
 

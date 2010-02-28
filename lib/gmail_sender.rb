@@ -21,12 +21,17 @@ class GmailSender
     @message_stream_writer.attachments << file if File.exist?(file)
   end
 
-  def send(options = {:to => "", :subject => "", :content => ""})
-    raise(Error, "Missing receiver (:to => 'someone@somehost.com')") if Utils.blank?(options[:to])
+  def send(options = {})
+    to = options[:to]
+    subject = options[:subject] || ""
+    content = options[:content] || ""
+    content_type = options[:content_type] || "text/plain; charset='utf-8'"
+
+    raise(Error, "Missing receiver (:to => 'someone@somehost.com')") if Utils.blank?(to)
 
     @net_smtp.start(@sender_domain, @sender_email, @sender_password, :plain) do |smtp|
-      smtp.open_message_stream(@sender_email, [options[:to]]) do |msg_stream|
-        @message_stream_writer.write(msg_stream, options[:to], options[:subject], options[:content])
+      smtp.open_message_stream(@sender_email, [to]) do |msg_stream|
+        @message_stream_writer.write(msg_stream, to, subject, content, content_type)
       end
     end
   end
