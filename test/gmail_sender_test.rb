@@ -25,13 +25,18 @@ end
 Expectations do
   expect "From: me@gmail.com\nTo: someone@somehost.com\nSubject: hi!\n\nho\n" do
     gmail_sender = GmailSender.new("me", "password", FakedNetSMTP)
-    gmail_sender.send("someone@somehost.com", "hi!", "ho")
+    gmail_sender.send(:to => "someone@somehost.com", :subject => "hi!", :content => "ho")
     FakedNetSMTP.sent_email
   end
 
   expect "From: me@somehost.com\nTo: someone@someotherhost.com\nSubject: hi!\n\nho\n" do
     gmail_sender = GmailSender.new("me@somehost.com", "password", FakedNetSMTP)
-    gmail_sender.send("someone@someotherhost.com", "hi!", "ho")
+    gmail_sender.send(:to => "someone@someotherhost.com", :subject => "hi!", :content => "ho")
     FakedNetSMTP.sent_email
+  end
+
+  expect GmailSender::Error do
+    gmail_sender = GmailSender.new("me@somehost.com", "password", FakedNetSMTP)
+    gmail_sender.send(:subject => "hi!", :content => "ho")
   end
 end

@@ -61,4 +61,4 @@ if params['attachments']
   end
 end
 content = params['content'] || (params['attachments'] && params['attachments'].join("\n"))
-mailer.send(params['receiver_email'], params['subject'], content || STDIN.read)
+mailer.send(:to => params['receiver_email'], :subject => params['subject'], :content => content || STDIN.read)

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Cadenas"]
-  s.date = %q{2010-02-21}
+  s.date = %q{2010-02-27}
   s.default_executable = %q{gmail}
   s.email = %q{dcadenas@gmail.com}
   s.executables = ["gmail"]
@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "bin/gmail",
-     "gmail_sender.gemspec",
      "lib/gmail_sender.rb",
      "lib/gmail_sender/message_stream_writer.rb",
      "lib/tls_smtp_patch.rb",
@@ -36,7 +35,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/dcadenas/gmail_sender}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{A simple gem to send email through gmail}
   s.test_files = [
     "test/gmail_sender_test.rb",
