@@ -9,6 +9,7 @@ A simple gem to send email through gmail
   g.attach('/path/to/document.hz') # you can attach any number of files, but there are limits for total attachments size
   g.send(:to => "someone@domain.com", :subject => "The subject", :content => "The mail body")
 
+Notice that the ':to' key accepts an email array so you can send the message to many receivers.
 You can specify the content type which is text/plain by default.
 
   g.send(:to => "someone@domain.com",
@@ -38,7 +39,7 @@ To send your directory list to the default receiver:
 
 You can specify some parameters like in this example which doesn't use pipes:
 
-  gmail -t somebody@gmail.com -s "This is the subject" -c "This is the email content" 
+  gmail -t somebody@gmail.com someoneelse@hotmail.com -s "This is the subject" -c "This is the email content"
 
 You can send attachments by using the -a option (this example assumes that you have a receiver_email set in the ~/.gmail file so the -t is not needed):
 

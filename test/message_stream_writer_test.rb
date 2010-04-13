@@ -8,6 +8,13 @@ Expectations do
     string_io.string
   end
 
+  expect "From: sender@gmail.com\nTo: to@gmail.com,to2@gmail.com\nSubject: subject\nMIME-Version: 1.0\nContent-Type: text/plain\n\nbody\n" do
+    string_io = StringIO.new
+    message_stream_writer = GmailSender::MessageStreamWriter.new("sender@gmail.com")
+    message_stream_writer.write(string_io, ["to@gmail.com", "to2@gmail.com"], "subject", "body", "text/plain")
+    string_io.string
+  end
+
   expect eval(<<-MAIL_WITH_ATTACHMENT_REGEXP) do
 /From: sender@gmail.com
 To: to@gmail.com

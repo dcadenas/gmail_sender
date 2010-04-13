@@ -19,11 +19,12 @@ class GmailSender
     private
     def write_headers(msg_stream, to, subject)
       msg_stream.puts "From: #{@sender_email}"
+      to = to.join(",") if to.respond_to?(:join)
       msg_stream.puts "To: #{to}"
       msg_stream.puts "Subject: #{subject}"
       msg_stream.puts 'MIME-Version: 1.0'
       unless @attachments.empty?
-        msg_stream.puts %{Content-Type: multipart/mixed; boundary="#{@boundary}"}
+          msg_stream.puts %{Content-Type: multipart/mixed; boundary="#{@boundary}"}
       end
     end
 

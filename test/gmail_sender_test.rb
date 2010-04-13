@@ -35,6 +35,12 @@ Expectations do
     FakedNetSMTP.sent_email
   end
 
+  expect "From: me@somehost.com\nTo: someone@someotherhost.com,someone2@someotherhost.com\nSubject: hi!\nMIME-Version: 1.0\nContent-Type: text/plain; charset='utf-8'\n\nho\n" do
+    gmail_sender = GmailSender.new("me@somehost.com", "password", FakedNetSMTP)
+    gmail_sender.send(:to => ["someone@someotherhost.com", "someone2@someotherhost.com"], :subject => "hi!", :content => "ho")
+    FakedNetSMTP.sent_email
+  end
+
   expect GmailSender::Error do
     gmail_sender = GmailSender.new("me@somehost.com", "password", FakedNetSMTP)
     gmail_sender.send(:subject => "hi!", :content => "ho")

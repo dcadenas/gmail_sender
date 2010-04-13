@@ -10,8 +10,8 @@ Choice.options do
   
   option :receiver_email do
     short '-t'
-    long '--to=RECEIVER'
-    desc 'Receiver of the email'
+    long '--to=*RECEIVERS'
+    desc 'A list of space separated receiver emails'
   end
 
   option :subject do
@@ -32,12 +32,11 @@ Choice.options do
     desc 'Content Type, text/plain by default, use text/html for html'
   end
 
-option :attachments do
+  option :attachments do
     short '-a'
     long '--attachments *ATTACHMENTS'
     desc "A list of space separated list of files you wish to attach."
   end
-  
 end
 
 def params
