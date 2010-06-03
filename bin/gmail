@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'gmail_sender'
 require 'choice'
+require 'yaml'
 
 Choice.options do
   header ''
