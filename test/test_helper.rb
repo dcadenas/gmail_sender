@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'expectations'
-require 'filetesthelper'
+require 'file_test_helper'
 include FileTestHelper
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
