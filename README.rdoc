@@ -62,3 +62,4 @@ tlsmail if running Ruby 1.8.6
 * Daniel Cadenas - Maintainer
 * Felipe Coury
 * iwakura
+* elcuervo
