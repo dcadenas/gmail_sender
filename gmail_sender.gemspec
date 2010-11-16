@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
      "LICENSE",
      "README.rdoc",
      "Rakefile",
-     "VERSION",
      "bin/gmail",
      "gmail_sender.gemspec",
      "lib/gmail_sender.rb",
@@ -52,14 +51,14 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<expectations>, [">= 0"])
-      s.add_development_dependency(%q<filetesthelper>, [">= 0"])
+      s.add_development_dependency(%q<file_test_helper>, [">= 0"])
     else
       s.add_dependency(%q<expectations>, [">= 0"])
-      s.add_dependency(%q<filetesthelper>, [">= 0"])
+      s.add_dependency(%q<file_test_helper>, [">= 0"])
     end
   else
     s.add_dependency(%q<expectations>, [">= 0"])
-    s.add_dependency(%q<filetesthelper>, [">= 0"])
+    s.add_dependency(%q<file_test_helper>, [">= 0"])
   end
 end
 
