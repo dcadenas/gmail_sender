@@ -1,66 +1,90 @@
-= gmail_sender
+gmail_sender
+============
 
 A simple gem to send email through gmail
 
+```ruby
   require 'rubygems'
   require 'gmail_sender'
 
   g = GmailSender.new("gmail_account_user_name", "gmail_account_password")
   g.attach('/path/to/document.hz') # you can attach any number of files, but there are limits for total attachments size
   g.send(:to => "someone@domain.com", :subject => "The subject", :content => "The mail body")
+```
 
 Notice that the ':to' key accepts an email array so you can send the message to many receivers.
 You can specify the content type which is text/plain by default.
 
+```ruby
   g.send(:to => "someone@domain.com",
          :subject => "The subject",
          :content => "<img src='http://upload.wikimedia.org/wikipedia/en/0/0d/Simpsons_FamilyPicture.png'/>", 
          :content_type => 'text/html')
+```
 
 To use your google apps domain instead of gmail.com include the complete sender email instead of just the user name:
 
+```ruby
   g = GmailSender.new("gmail_account_user_name@yourdomain.com", "gmail_account_password")
+```
 
-== Command line usage
+Command line usage
+------------------
 
 You can also use gmail_sender from the command line. First you need to create ~/.gmail with this content (YAML):
 
+```
   receiver_email: default_receiver@gmail.com
   sender_user: gmail_account_user_name
   sender_password: gmail_account_password
+```
 
 Is advisable to use a different sender account than your main email address so that it's not so bad if someone reads your configuration file and gets your password.
 
-=== Examples
+### Examples
 
 To send your directory list to the default receiver:
 
+```bash
   ls | gmail
+```
 
 You can specify some parameters like in this example which doesn't use pipes:
 
+```bash
   gmail -t somebody@gmail.com someoneelse@hotmail.com -s "This is the subject" -c "This is the email content"
+```
 
 You can send attachments by using the -a option (this example assumes that you have a receiver_email set in the ~/.gmail file so the -t is not needed):
 
+```bash
   gmail -c "hi, I'm sending some attachments" -a ./VERSION ./gmail_sender.gemspec
+```
 
 To send html content use the ct option
 
+```bash
   gmail -c "<img src='http://upload.wikimedia.org/wikipedia/en/0/0d/Simpsons_FamilyPicture.png'/>" -ct text/html
+```
 
-== Installation
+Installation
+------------
 
+```bash
   sudo gem install gmail_sender
+```
 
-== Requirements
+Requirements
+------------
 
 tlsmail if running Ruby 1.8.6
 
-== Major contributors
+Major contributors
+------------------
 
 * Daniel Cadenas - Maintainer
 * Felipe Coury
 * iwakura
 * saks
 * elcuervo
+
