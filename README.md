@@ -1,3 +1,4 @@
+[![Build Status](https://secure.travis-ci.org/dcadenas/gmail_sender.png?branch=master)](http://travis-ci.org/dcadenas/gmail_sender)
 gmail_sender
 ============
 
