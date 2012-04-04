@@ -8,8 +8,11 @@ A simple gem to send email through gmail
   require 'gmail_sender'
 
   g = GmailSender.new("gmail_account_user_name", "gmail_account_password")
-  g.attach('/path/to/document.hz') # you can attach any number of files, but there are limits for total attachments size
-  g.send(:to => "someone@domain.com", :subject => "The subject", :content => "The mail body")
+  # you can attach any number of files, but there are limits for total attachments size
+  g.attach('/path/to/document.hz')
+  g.send(:to => "someone@domain.com",
+         :subject => "The subject",
+         :content => "The mail body")
 ```
 
 Notice that the ':to' key accepts an email array so you can send the message to many receivers.
@@ -18,7 +21,7 @@ You can specify the content type which is text/plain by default.
 ```ruby
   g.send(:to => "someone@domain.com",
          :subject => "The subject",
-         :content => "<img src='http://upload.wikimedia.org/wikipedia/en/0/0d/Simpsons_FamilyPicture.png'/>", 
+         :content => "<img src='http://upload.wikimedia.org/wikipedia/en/0/0d/Simpsons_FamilyPicture.png'/>",
          :content_type => 'text/html')
 ```
 
@@ -52,19 +55,19 @@ To send your directory list to the default receiver:
 You can specify some parameters like in this example which doesn't use pipes:
 
 ```bash
-  gmail -t somebody@gmail.com someoneelse@hotmail.com -s "This is the subject" -c "This is the email content"
+  gmail -t hansel@gmail.com gretel@hotmail.com -s "the subject" -c "the content"
 ```
 
 You can send attachments by using the -a option (this example assumes that you have a receiver_email set in the ~/.gmail file so the -t is not needed):
 
 ```bash
-  gmail -c "hi, I'm sending some attachments" -a ./VERSION ./gmail_sender.gemspec
+  gmail -c "the attachments" -a ./VERSION ./gmail_sender.gemspec
 ```
 
 To send html content use the ct option
 
 ```bash
-  gmail -c "<img src='http://upload.wikimedia.org/wikipedia/en/0/0d/Simpsons_FamilyPicture.png'/>" -ct text/html
+  gmail -c "<img src='http://host/image.png'/>" -ct text/html
 ```
 
 Installation
