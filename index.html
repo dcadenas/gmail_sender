@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Gmail sender by dcadenas</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/dcadenas/gmail_sender">Fork Me on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Gmail sender</h1>
+            <h2>A simple gem to send email through gmail</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/dcadenas/gmail_sender/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/dcadenas/gmail_sender/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+      <span class="banner-fix"></span>
+
+      <section id="main_content">
+        <div class="highlight">
+<pre><span class="nb">require</span> <span class="s1">'gmail_sender'</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="no">GmailSender</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">"gmail_account_user_name"</span><span class="p">,</span> <span class="s2">"gmail_account_password"</span><span class="p">)</span>
+<span class="c1"># you can attach any number of files, but there are limits for total attachments size</span>
+<span class="n">g</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s1">'/path/to/document.hz'</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s2">"someone@domain.com"</span><span class="p">,</span>
+       <span class="ss">:subject</span> <span class="o">=&gt;</span> <span class="s2">"The subject"</span><span class="p">,</span>
+       <span class="ss">:content</span> <span class="o">=&gt;</span> <span class="s2">"The mail body"</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<p>Notice that the <code>:to</code> key accepts an email array so you can send the message to many receivers.
+You can specify the content type which is <code>text/plain</code> by default.</p>
+
+<div class="highlight">
+<pre><span class="n">g</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s2">"someone@domain.com"</span><span class="p">,</span>
+       <span class="ss">:subject</span> <span class="o">=&gt;</span> <span class="s2">"The subject"</span><span class="p">,</span>
+       <span class="ss">:content</span> <span class="o">=&gt;</span> <span class="s2">"&lt;img src='<a href="http://upload.wikimedia.org/wikipedia/en/0/0d/Simpsons_FamilyPicture.png'/&gt;">http://upload.wikimedia.org/wikipedia/en/0/0d/Simpsons_FamilyPicture.png'/&gt;</a>"</span><span class="p">,</span>
+       <span class="ss">:content_type</span> <span class="o">=&gt;</span> <span class="s1">'text/html'</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<p>To use your google apps domain instead of gmail.com include the complete sender email instead of just the user name:</p>
+
+<div class="highlight">
+<pre><span class="n">g</span> <span class="o">=</span> <span class="no">GmailSender</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">"gmail_account_user_name@yourdomain.com"</span><span class="p">,</span> <span class="s2">"gmail_account_password"</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<h2>Command line usage</h2>
+
+<p>You can also use gmail_sender from the command line. First you need to create <code>~/.gmail</code> with this content (YAML):</p>
+
+<div class="highlight">
+<pre><span class="l-Scalar-Plain">receiver_email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default_receiver@gmail.com</span>
+<span class="l-Scalar-Plain">sender_user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">gmail_account_user_name</span>
+<span class="l-Scalar-Plain">sender_password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">gmail_account_password</span>
+</pre>
+</div>
+
+
+<p>Is advisable to use a different sender account than your main email address so that it's not so bad if someone reads your configuration file and gets your password.</p>
+
+<h3>Examples</h3>
+
+<p>To send your directory list to the default receiver:</p>
+
+<div class="highlight">
+<pre>ls | gmail
+</pre>
+</div>
+
+
+<p>You can specify some parameters like in this example which doesn't use pipes:</p>
+
+<div class="highlight">
+<pre>gmail -t hansel@gmail.com gretel@hotmail.com -s <span class="s2">"the subject"</span> -c <span class="s2">"the content"</span>
+</pre>
+</div>
+
+
+<p>You can send attachments by using the -a option (this example assumes that you have a receiver_email set in the <code>~/.gmail</code> file so the <code>-t</code> is not needed):</p>
+
+<div class="highlight">
+<pre>gmail -c <span class="s2">"the attachments"</span> -a ./VERSION ./gmail_sender.gemspec
+</pre>
+</div>
+
+
+<p>To send html content use the ct option</p>
+
+<div class="highlight">
+<pre>gmail -c <span class="s2">"&lt;img src='http://host/image.png'/&gt;"</span> -ct text/html
+</pre>
+</div>
+
+
+<h2>Installation</h2>
+
+<div class="highlight">
+<pre>gem install gmail_sender
+</pre>
+</div>
+
+
+<h2>Requirements</h2>
+
+<p>tlsmail if running Ruby 1.8.6</p>
+
+<h2>Major contributors</h2>
+
+<ul>
+<li>Daniel Cadenas - Maintainer</li>
+<li>Felipe Coury</li>
+<li>iwakura</li>
+<li>saks</li>
+<li>elcuervo</li>
+</ul>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/dcadenas">dcadenas</a> can be found on <a href="https://github.com/dcadenas/gmail_sender">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
