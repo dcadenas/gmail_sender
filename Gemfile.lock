@@ -1,0 +1,18 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    choice (0.1.6)
+    expectations (2.0.0)
+      mocha (>= 0.5.5)
+    file_test_helper (1.0.2)
+    metaclass (0.0.1)
+    mocha (0.10.5)
+      metaclass (~> 0.0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  choice
+  expectations
+  file_test_helper
