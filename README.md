@@ -1,4 +1,7 @@
 [![Build Status](https://secure.travis-ci.org/dcadenas/gmail_sender.png?branch=master)](http://travis-ci.org/dcadenas/gmail_sender)
+
+[![endorse](http://api.coderwall.com/dcadenas/endorsecount.png)](http://coderwall.com/dcadenas)
+
 gmail_sender
 ============
 
