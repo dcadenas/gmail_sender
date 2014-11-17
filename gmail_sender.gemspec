@@ -15,13 +15,13 @@ Gem::Specification.new do |s|
   s.executables = ["gmail"]
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.rdoc"
+     "README.md"
   ]
   s.files = [
     ".document",
      ".gitignore",
      "LICENSE",
-     "README.rdoc",
+     "README.md",
      "Rakefile",
      "bin/gmail",
      "gmail_sender.gemspec",
