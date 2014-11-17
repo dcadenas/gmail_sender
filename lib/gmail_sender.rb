@@ -26,7 +26,7 @@ class GmailSender
     to = [options[:to]].flatten
     subject = options[:subject] || ""
     content = options[:content] || ""
-    content_type = options[:content_type] || "text/plain; charset='utf-8'"
+    content_type = options[:content_type] || 'text/plain; charset=UTF-8'
 
     @net_smtp.start(@sender_domain, @sender_email, @sender_password, :plain) do |smtp|
       smtp.open_message_stream(@sender_email, to) do |msg_stream|
